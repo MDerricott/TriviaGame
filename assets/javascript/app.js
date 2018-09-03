@@ -115,7 +115,7 @@ function run() {
 
 function questionEnding() {
     emptyStageRestart();
-    $(".stage").text(`
+    $(".stage").html(`
         <h3> You answered incorrectly </h3>
         <h4> The answer is ${gameAnswer}</h4>
         <p>${gameQuestion.funfact}</p>
@@ -133,15 +133,11 @@ function emptyStageRestart() {
     number = 30;  
 }
 
-
 function rightAnswer() {
         emptyStageRestart();
-        level++
         $(".stage").html(`
         <h3> You answered correctly </h3>
-        <br>
         <h4> The answer is ${gameAnswer}</h4>
-        <br>
         <p>${gameQuestion.funfact}</p>
         `);
 };
@@ -153,9 +149,7 @@ function gameOverNow() {
     unanswer = questions - correct - incorrect;
     $(".stage").html(`
     <h3> Game Over </h3>
-    <br>
     <h4>Thank you for playing!</h4>
-    <br>
     <h5>Correct: ${correct}</h5>
     <h5> Incorrect: ${incorrect} </h5>
     <h5> Unanswered: ${unanswer}</h5>
@@ -164,6 +158,7 @@ function gameOverNow() {
         resetFunction();
     }, 1000 * 5);
 };
+
 function resetFunction() {
     var resetButton = $("<div class='reset-button'>");
     resetButton.text("Reset Button");
@@ -171,7 +166,7 @@ function resetFunction() {
     $(".reset-button").on("click", function () {
         $(".hint-row").empty();
         gameover = false;
-        gameArray = [qone, qtwo, qthree];
+        gameArray = [qone, qtwo, qthree ,qfour, qfive, qsix, qseven,qeight,qnine,qten];
         incorrect = 0;
         correct = 0;
         unanswer = 0;
@@ -181,7 +176,6 @@ function resetFunction() {
         hintButton();
     });
 };
-
 
 function decrement() {
     if (!gameover) {
@@ -249,9 +243,6 @@ function setupQuestion() {
         gameOverNow();
     }
 };
-
-
-
 
 function clickFunction() {
     $(optionsBlockOne).on("click", function () {
@@ -341,8 +332,8 @@ function hintButton() {
 };
 
 
-var questions = 3;
-var gameArray = [qone, qtwo, qthree];
+var questions = 10;
+var gameArray = [qone, qtwo, qthree ,qfour, qfive, qsix, qseven,qeight,qnine,qten];
 var arrayOfOptions;
 var arrayofLocations;
 var optionsBlockOne = $(".one");
@@ -365,23 +356,15 @@ var incorrect = 0;
 var gameover = false;
 var userClicked = false;
 var hintsLeft = 2;
-
-
-
-
 var startButton = $("<div class='start-button'>");
 var hintButtonPush = $("<div class ='hint-button'>");
 startButton.text("Start Button");
 
 $(".stage").append(startButton);
-
 $(".start-button").on("click", function () {
-
     setupQuestion();
     clickFunction();
     hintButton();
-
-
 });
 
 
