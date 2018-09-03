@@ -1,0 +1,14 @@
+.row{
+    background-color: aquamarine;
+    height: 100px;
+}
+
+.hint-row{
+    height: 200px;
+    background-color: rgb(126, 80, 25);
+    color: black;
+}
+#hint{
+    color: gray;
+  
+}
