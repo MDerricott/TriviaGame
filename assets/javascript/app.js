@@ -116,15 +116,18 @@ function run() {
 function questionEnding() {
     emptyStageRestart();
     $(".stage").html(`
+        <div class="answer-screen">
         <h3> You answered incorrectly </h3>
-        <h4> The answer is ${gameAnswer}</h4>
+        <p> The answer is ${gameAnswer}<p>
         <p>${gameQuestion.funfact}</p>
+        </div>
         `);
 };
 
 function emptyStageRestart() {
     stop();
     resultsTimeOut();
+    $(".stage").empty();
     $(".one").empty();
     $(".two").empty();
     $(".three").empty();
@@ -136,24 +139,29 @@ function emptyStageRestart() {
 function rightAnswer() {
         emptyStageRestart();
         $(".stage").html(`
-        <h3> You answered correctly </h3>
-        <h4> The answer is ${gameAnswer}</h4>
+        <div class = "answer-screen">
+        <h3> You answered correctly. </h3>
+        <p> The answer is <strong>${gameAnswer}</strong></p>
         <p>${gameQuestion.funfact}</p>
+        </div>
         `);
 };
 
 function gameOverNow() {
-    $(".stage").empty();
+    emptyStageRestart();
     correct;
     incorrect;
     unanswer = questions - correct - incorrect;
     $(".stage").html(`
-    <h3> Game Over </h3>
-    <h4>Thank you for playing!</h4>
-    <h5>Correct: ${correct}</h5>
-    <h5> Incorrect: ${incorrect} </h5>
-    <h5> Unanswered: ${unanswer}</h5>
+    <div class="ending-credits">
+    <h1> Game Over </h1>
+    <h3>Thank you for playing!</h3>
+    <p>Correct: ${correct}</h5>
+    <p> Incorrect: ${incorrect} </p>
+    <p> Unanswered: ${unanswer}</p>
+    </div>
     `);
+    $(".hint-button").remove();
     setTimeout(function () {
         resetFunction();
     }, 1000 * 5);
@@ -162,9 +170,10 @@ function gameOverNow() {
 function resetFunction() {
     var resetButton = $("<div class='reset-button'>");
     resetButton.text("Reset Button");
-    $(".stage").append(resetButton);
+    $(".hint-row").empty();
+    $(".hint-row").append(resetButton);
     $(".reset-button").on("click", function () {
-        $(".hint-row").empty();
+        
         gameover = false;
         gameArray = [qone, qtwo, qthree ,qfour, qfive, qsix, qseven,qeight,qnine,qten];
         incorrect = 0;
@@ -180,9 +189,16 @@ function resetFunction() {
 function decrement() {
     if (!gameover) {
         number--;
-        $(".timer").html("<h2>" + number + "</h2>");
+        $(".timer").html("<h4> Time Remaining: " + number + "</h4>");
         if (number === 0) {
-            questionEnding();
+            emptyStageRestart();
+            $(".stage").html(`
+                <div class="answer-screen">
+                <h3> Time's Up!</h3>
+                <p> The answer is ${gameAnswer}<p>
+                <p>${gameQuestion.funfact}</p>
+                </div>
+                `);
         }
     }
     else {
@@ -234,7 +250,6 @@ function setupQuestion() {
                 $(arrayofLocations[i]).attr("value", "hint");
 
             }
-
             arrayOfOptions.splice(randomIndex, 1);
         }
     }
@@ -344,7 +359,7 @@ var stage = $(".stage");
 var gameQuestion = {};
 var gameAnswer;
 var hintToBeCleared;
-var number = 5;
+var number = 30;
 var correct = 0;
 var incorrect = 0;
 var unanswer;
@@ -365,8 +380,11 @@ $(".start-button").on("click", function () {
     setupQuestion();
     clickFunction();
     hintButton();
+    // audioElement.play();
 });
-
+var audioElement = document.createElement("audio");
+      audioElement.setAttribute("src", "assets/images/goham.mp3");
+      
 
 
 
