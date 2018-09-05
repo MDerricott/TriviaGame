@@ -6,7 +6,7 @@ var qone = {
         wrongOne: "Federal Reserve Chairman",
         wrongTwo: "Secretary of Interior",
     },
-    funfact:"Hamilton was the nation's first Treasury Secretary, appointed by George Washington."
+    funfact: "Hamilton was the nation's first Treasury Secretary, appointed by George Washington."
 };
 
 var qtwo = {
@@ -17,7 +17,7 @@ var qtwo = {
         wrongOne: "$50 bill",
         wrongTwo: "$20 bill"
     },
-    funfact:"Hamilton has been on the $10 bill since 1928."
+    funfact: "Hamilton has been on the $10 bill since 1928."
 };
 
 var qthree = {
@@ -31,7 +31,7 @@ var qthree = {
     funfact: "The Bank of New York was one of the nation's first banks, and Hamilton's plan for it served as a model for many banks to come."
 };
 
-var qfour= {
+var qfour = {
     question: "During the Revolution, Hamilton led the New York Provincial Artillery Company, which today exists as the First Battalion Fifth Field Artillery based in:",
     options: {
         answer: "Kansas",
@@ -39,10 +39,10 @@ var qfour= {
         wrongOne: "New York",
         wrongTwo: "Texas"
     },
-    funfact:"The unit, known as 'Hamilton's Own,' is located at Fort Riley, Kansas"
+    funfact: "The unit, known as 'Hamilton's Own,' is located at Fort Riley, Kansas"
 };
 
-var qfive= {
+var qfive = {
     question: "Hamilton, one of the few founding fathers to be born abroad, was born in:",
     options: {
         answer: "Nevis",
@@ -53,7 +53,7 @@ var qfive= {
     funfact: "Nevis, the Caribbean island that in Hamilton's time was part of the British West Indies."
 };
 
-var qsix= {
+var qsix = {
     question: "Hamilton helped found the newspaper that became:",
     options: {
         answer: "The New York Post",
@@ -61,10 +61,10 @@ var qsix= {
         wrongOne: "The New York Times",
         wrongTwo: "The New York Herald Tribune"
     },
-    funfact:"The New York Post, originally called the New-York Evening Post, started publication in 1801.",
+    funfact: "The New York Post, originally called the New-York Evening Post, started publication in 1801.",
 };
 
-var qseven= {
+var qseven = {
     question: 'Hamilton was called "Bastard brat of a Scotch pedlar" by:',
     options: {
         answer: "John Adams",
@@ -72,10 +72,10 @@ var qseven= {
         wrongOne: "Dolly Madison",
         wrongTwo: "Aaron Burr"
     },
-    funfact: "Adams and Hamilton did not get along, and Adams referred unkindly to the Hamilton's illegitimate birth on several occasions.", 
+    funfact: "Adams and Hamilton did not get along, and Adams referred unkindly to the Hamilton's illegitimate birth on several occasions.",
 };
 
-var qeight= {
+var qeight = {
     question: "The famous Burr-Hamilton duel took place in:",
     options: {
         answer: "Weehawken, NJ",
@@ -83,10 +83,10 @@ var qeight= {
         wrongOne: "Pittsburgh, PA",
         wrongTwo: "Greenwich Village, New York City, NY"
     },
-    funfact:"Weehawken, New Jersey, is across the Hudson River from New York. After he was wounded by Burr, Hamilton was rowed to Greenwich Village, where he died the next day.",
+    funfact: "Weehawken, New Jersey, is across the Hudson River from New York. After he was wounded by Burr, Hamilton was rowed to Greenwich Village, where he died the next day.",
 };
 
-var qnine= {
+var qnine = {
     question: "Alexander Hamilton, an ambitious young immigrant, married which daughter of a wealthy patriot family?:",
     options: {
         answer: "Elizabeth Schuyler",
@@ -94,10 +94,10 @@ var qnine= {
         wrongOne: "Peggy Shippen",
         wrongTwo: "Kitty Livingston"
     },
-    funfact:"Elizabeth Schuyler came from an old Dutch landowning family in upstate New York. She outlived Hamilton by fifty years, and she spent those decades assiduously working to preserve his reputation and build his legacy.",
+    funfact: "Elizabeth Schuyler came from an old Dutch landowning family in upstate New York. She outlived Hamilton by fifty years, and she spent those decades assiduously working to preserve his reputation and build his legacy.",
 };
 
-var qten= {
+var qten = {
     question: "In order to get his financial program through Congress in 1790, Alexander Hamilton made a deal to move the nation's capital from:",
     options: {
         answer: "New York to Philadelphia to Washington, DC",
@@ -118,7 +118,7 @@ function questionEnding() {
     $(".stage").html(`
         <div class="answer-screen">
         <h3> You answered incorrectly </h3>
-        <p> The answer is ${gameAnswer}<p>
+        <p> The answer is <strong> ${gameAnswer} </strong><p>
         <p>${gameQuestion.funfact}</p>
         </div>
         `);
@@ -133,12 +133,12 @@ function emptyStageRestart() {
     $(".three").empty();
     $(".four").empty();
     $(".timer").empty();
-    number = 30;  
+    number = 5;
 }
 
 function rightAnswer() {
-        emptyStageRestart();
-        $(".stage").html(`
+    emptyStageRestart();
+    $(".stage").html(`
         <div class = "answer-screen">
         <h3> You answered correctly. </h3>
         <p> The answer is <strong>${gameAnswer}</strong></p>
@@ -162,28 +162,33 @@ function gameOverNow() {
     </div>
     `);
     $(".hint-button").remove();
-    setTimeout(function () {
-        resetFunction();
-    }, 1000 * 5);
+    gameover = true;
+    resetFunction();
+    // var timeout = setTimeout(function () {
+    //     resetFunction();
+    // }, 1000 * 5);
 };
 
 function resetFunction() {
-    var resetButton = $("<div class='reset-button'>");
-    resetButton.text("Reset Button");
-    $(".hint-row").empty();
-    $(".hint-row").append(resetButton);
-    $(".reset-button").on("click", function () {
-        
-        gameover = false;
-        gameArray = [qone, qtwo, qthree ,qfour, qfive, qsix, qseven,qeight,qnine,qten];
-        incorrect = 0;
-        correct = 0;
-        unanswer = 0;
-        hintsLeft = 0;
-        setupQuestion();
-        clickFunction();
-        hintButton();
-    });
+    if (gameover) {
+        var resetButton = $("<div class='reset-button'>");
+        resetButton.append("Reset Button");
+        // $(".hint-row").empty();
+        $(".hint-row").append(resetButton);
+        $(".reset-button").on("click", function () {
+            resetButton.remove();
+            gameover =false;
+            gameArray = [qone, qtwo, qthree, qfour, qfive, qsix, qseven, qeight, qnine, qten];
+            incorrect = 0;
+            correct = 0;
+            unanswer = 0;
+            hintsLeft = 0;
+            setupQuestion();
+            clickFunction();
+            hintButton();
+
+        });
+    };
 };
 
 function decrement() {
@@ -233,9 +238,12 @@ function setupQuestion() {
         run();
         stage.text(gameQuestion.question);
         $("#hint").removeAttr("id");
-        $("#answer").removeAttr("value");
-       console.log(gameQuestion);
-        
+        optionsBlockFour.removeAttr("value");
+        optionsBlockOne.removeAttr("value");
+        optionsBlockThree.removeAttr("value");
+        optionsBlockTwo.removeAttr("value");
+
+        console.log(gameQuestion);
         arrayOfOptions = [gameQuestion.options.answer, gameQuestion.options.hint, gameQuestion.options.wrongOne, gameQuestion.options.wrongTwo];
         arrayofLocations = [optionsBlockFour, optionsBlockOne, optionsBlockThree, optionsBlockTwo];
         for (var i = 0; i < arrayofLocations.length; i++) {
@@ -253,7 +261,7 @@ function setupQuestion() {
             arrayOfOptions.splice(randomIndex, 1);
         }
     }
-    else if (gameArray.length === 0) {
+    else if (gameArray.length === 0 && !gameover) {
         gameover = true;
         gameOverNow();
     }
@@ -348,7 +356,7 @@ function hintButton() {
 
 
 var questions = 10;
-var gameArray = [qone, qtwo, qthree ,qfour, qfive, qsix, qseven,qeight,qnine,qten];
+var gameArray = [qone, qtwo, qthree, qfour, qfive, qsix, qseven, qeight, qnine, qten];
 var arrayOfOptions;
 var arrayofLocations;
 var optionsBlockOne = $(".one");
@@ -359,7 +367,7 @@ var stage = $(".stage");
 var gameQuestion = {};
 var gameAnswer;
 var hintToBeCleared;
-var number = 30;
+var number = 5;
 var correct = 0;
 var incorrect = 0;
 var unanswer;
@@ -380,11 +388,12 @@ $(".start-button").on("click", function () {
     setupQuestion();
     clickFunction();
     hintButton();
+
     // audioElement.play();
 });
 var audioElement = document.createElement("audio");
-      audioElement.setAttribute("src", "assets/images/goham.mp3");
-      
+audioElement.setAttribute("src", "assets/images/goham.mp3");
+
 
 
 
