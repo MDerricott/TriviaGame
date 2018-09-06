@@ -147,7 +147,7 @@ function emptyStageRestart() {
    
     
     $(".timer").empty();
-    number = 5;
+    number = 30;
     
 }
 
@@ -244,7 +244,7 @@ function decrement() {
 function resultsTimeOut() {
     setTimeout(() => {
         setupQuestion();
-    }, 1000 * 5);
+    }, 1000 * 7);
 }
 
 function stop() {
@@ -405,7 +405,7 @@ var stage = $(".stage");
 var gameQuestion = {};
 var gameAnswer;
 var hintToBeCleared;
-var number = 5;
+var number = 30;
 var correct = 0;
 var incorrect = 0;
 var unanswer;
