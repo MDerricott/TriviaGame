@@ -6,7 +6,8 @@ var qone = {
         wrongOne: "Federal Reserve Chairman",
         wrongTwo: "Secretary of Interior",
     },
-    funfact: "Hamilton was the nation's first Treasury Secretary, appointed by George Washington."
+    funfact: "Hamilton was the nation's first Treasury Secretary, appointed by George Washington.",
+    image: "<img src='assets/images/hamilton.jpg'/>"
 };
 
 var qtwo = {
@@ -17,7 +18,8 @@ var qtwo = {
         wrongOne: "$50 bill",
         wrongTwo: "$20 bill"
     },
-    funfact: "Hamilton has been on the $10 bill since 1928."
+    funfact: "Hamilton has been on the $10 bill since 1928.",
+    image: "<img src='assets/images/ten.jpeg'/>"
 };
 
 var qthree = {
@@ -28,7 +30,8 @@ var qthree = {
         wrongOne: "The New York Stock",
         wrongTwo: "U.S. Trust"
     },
-    funfact: "The Bank of New York was one of the nation's first banks, and Hamilton's plan for it served as a model for many banks to come."
+    funfact: "The Bank of New York was one of the nation's first banks, and Hamilton's plan for it served as a model for many banks to come.",
+    image: "<img src='assets/images/bank.jpg'/>",
 };
 
 var qfour = {
@@ -39,7 +42,8 @@ var qfour = {
         wrongOne: "New York",
         wrongTwo: "Texas"
     },
-    funfact: "The unit, known as 'Hamilton's Own,' is located at Fort Riley, Kansas"
+    funfact: "The unit, known as 'Hamilton's Own,' is located at Fort Riley, Kansas",
+    image: "<img src='assets/images/war.jpg'/>",
 };
 
 var qfive = {
@@ -50,7 +54,8 @@ var qfive = {
         wrongOne: "Isle of Skye",
         wrongTwo: "Halifax"
     },
-    funfact: "Nevis, the Caribbean island that in Hamilton's time was part of the British West Indies."
+    funfact: "Nevis, the Caribbean island that in Hamilton's time was part of the British West Indies.",
+    image: "<img src='assets/images/nevis.jpg'/>",
 };
 
 var qsix = {
@@ -62,6 +67,7 @@ var qsix = {
         wrongTwo: "The New York Herald Tribune"
     },
     funfact: "The New York Post, originally called the New-York Evening Post, started publication in 1801.",
+    image: "<img src='assets/images/post.jpg'/>",
 };
 
 var qseven = {
@@ -73,6 +79,7 @@ var qseven = {
         wrongTwo: "Aaron Burr"
     },
     funfact: "Adams and Hamilton did not get along, and Adams referred unkindly to the Hamilton's illegitimate birth on several occasions.",
+    image: "<img src='assets/images/adams.jpeg'/>",
 };
 
 var qeight = {
@@ -81,9 +88,10 @@ var qeight = {
         answer: "Weehawken, NJ",
         hint: "Albany, NY",
         wrongOne: "Pittsburgh, PA",
-        wrongTwo: "Greenwich Village, New York City, NY"
+        wrongTwo: "Greenwich Village, NY, NY"
     },
     funfact: "Weehawken, New Jersey, is across the Hudson River from New York. After he was wounded by Burr, Hamilton was rowed to Greenwich Village, where he died the next day.",
+    image: "<img src='assets/images/duel.jpg'/>",
 };
 
 var qnine = {
@@ -95,17 +103,19 @@ var qnine = {
         wrongTwo: "Kitty Livingston"
     },
     funfact: "Elizabeth Schuyler came from an old Dutch landowning family in upstate New York. She outlived Hamilton by fifty years, and she spent those decades assiduously working to preserve his reputation and build his legacy.",
+    image: "<img src='assets/images/eliza.jpg'/>",
 };
 
 var qten = {
     question: "In order to get his financial program through Congress in 1790, Alexander Hamilton made a deal to move the nation's capital from:",
     options: {
-        answer: "New York to Philadelphia to Washington, DC",
-        hint: "New York to Trenton to Philadelphia",
-        wrongOne: "New York to Annapolis, MD",
+        answer: "NY to PA to Washington, DC",
+        hint: "NY to Trenton to Philadelphia",
+        wrongOne: "NY to Annapolis, MD",
         wrongTwo: "Philadelphia to Washington, DC"
     },
-    funfact: "In exchange for moving the capital to a site on the Potomac, Southern lawmakers agreed to enact Hamilton's controversial plan for the Federal Government to assume debts individual states had incurred during the Revolutionary War. The deal was arranged by Hamilton and Virignia senator James Madison over a dinner hosted by Thomas Jefferson."
+    funfact: "In exchange for moving the capital to a site on the Potomac, Southern lawmakers agreed to enact Hamilton's controversial plan for the Federal Government to assume debts individual states had incurred during the Revolutionary War. The deal was arranged by Hamilton and VA senator James Madison over a dinner hosted by Thomas Jefferson.",
+    image: '<img src="assets/images/capitol.jpg"/>',
 };
 
 function run() {
@@ -114,10 +124,13 @@ function run() {
 };
 
 function questionEnding() {
+   
     emptyStageRestart();
     $(".stage").html(`
         <div class="answer-screen">
-        <h3> You answered incorrectly </h3>
+        <div class="test">${questionImage}</div>
+        <h1> <strong> You answered incorrectly.</strong></h1>
+        
         <p> The answer is <strong> ${gameAnswer} </strong><p>
         <p>${gameQuestion.funfact}</p>
         </div>
@@ -126,25 +139,30 @@ function questionEnding() {
 
 function emptyStageRestart() {
     stop();
+    userClicked = true;
+    
     resultsTimeOut();
+   
     $(".stage").empty();
-    $(".one").empty();
-    $(".two").empty();
-    $(".three").empty();
-    $(".four").empty();
+   
+    
     $(".timer").empty();
     number = 5;
+    
 }
 
 function rightAnswer() {
     emptyStageRestart();
     $(".stage").html(`
-        <div class = "answer-screen">
-        <h3> You answered correctly. </h3>
+        <div class="answer-screen">
+        <div class="test">${questionImage}</div>
+        <h1><strong> You answered correctly.</strong></h1>
+        
         <p> The answer is <strong>${gameAnswer}</strong></p>
         <p>${gameQuestion.funfact}</p>
         </div>
         `);
+    
 };
 
 function gameOverNow() {
@@ -153,15 +171,22 @@ function gameOverNow() {
     incorrect;
     unanswer = questions - correct - incorrect;
     $(".stage").html(`
-    <div class="ending-credits">
-    <h1> Game Over </h1>
+    <div class="answer-screen">
+    <div class="test"><img src='assets/images/hamilton.jpg'/></div>
+    <h1><strong> The Game is Over. </strong> </h1>
+   
     <h3>Thank you for playing!</h3>
-    <p>Correct: ${correct}</h5>
-    <p> Incorrect: ${incorrect} </p>
-    <p> Unanswered: ${unanswer}</p>
+    <p><strong>Correct:</strong> ${correct}</h5>
+    <p><strong>Incorrect:</strong> ${incorrect} </p>
+    <p> <Srong>Unanswered:</strong> ${unanswer}</p>
     </div>
     `);
+    $(".questions-remaining").empty();
     $(".hint-button").remove();
+    $(".two").empty();
+    $(".one").empty();
+    $(".three").empty();
+    $(".four").empty();
     gameover = true;
     resetFunction();
     // var timeout = setTimeout(function () {
@@ -172,7 +197,7 @@ function gameOverNow() {
 function resetFunction() {
     if (gameover) {
         var resetButton = $("<div class='reset-button'>");
-        resetButton.append("Reset Button");
+        resetButton.append("Reset the Game");
         // $(".hint-row").empty();
         $(".hint-row").append(resetButton);
         $(".reset-button").on("click", function () {
@@ -183,9 +208,12 @@ function resetFunction() {
             correct = 0;
             unanswer = 0;
             hintsLeft = 0;
+            questionCount = 10;
             setupQuestion();
             clickFunction();
             hintButton();
+            
+
 
         });
     };
@@ -198,9 +226,11 @@ function decrement() {
         if (number === 0) {
             emptyStageRestart();
             $(".stage").html(`
-                <div class="answer-screen">
-                <h3> Time's Up!</h3>
-                <p> The answer is ${gameAnswer}<p>
+                <div class=" row answer-screen">
+                <div class="test">${questionImage}</div>
+                <h1> <strong>Time's Up!</strong></h1>
+              
+                <p> The answer is <strong> ${gameAnswer} </strong><p>
                 <p>${gameQuestion.funfact}</p>
                 </div>
                 `);
@@ -223,27 +253,33 @@ function stop() {
 
 function assignNewGameQuestion() {
     if (!gameover) {
+        answerSection.show();
+        
         questionIndex = Math.floor(Math.random() * gameArray.length);
         var assignment = gameArray[questionIndex];
         gameQuestion = assignment;
         gameArray.splice(questionIndex, 1);
         userClicked = false;
         gameAnswer = gameQuestion.options.answer;
+        questionImage = gameQuestion.image;
     };
 };
 
 function setupQuestion() {
     if (!gameover && gameArray.length > 0) {
-        assignNewGameQuestion();
         run();
+        assignNewGameQuestion();
+       
         stage.text(gameQuestion.question);
         $("#hint").removeAttr("id");
         optionsBlockFour.removeAttr("value");
         optionsBlockOne.removeAttr("value");
         optionsBlockThree.removeAttr("value");
         optionsBlockTwo.removeAttr("value");
-
-        console.log(gameQuestion);
+        questionCount --;
+        $(".questions-remaining").html(`
+        <h3> Questions remaining: ${questionCount}</h3>
+        `);
         arrayOfOptions = [gameQuestion.options.answer, gameQuestion.options.hint, gameQuestion.options.wrongOne, gameQuestion.options.wrongTwo];
         arrayofLocations = [optionsBlockFour, optionsBlockOne, optionsBlockThree, optionsBlockTwo];
         for (var i = 0; i < arrayofLocations.length; i++) {
@@ -335,10 +371,11 @@ function clickFunction() {
 function hintButton() {
     var theHintButton = $("<div class='hint-button'>");
 
-    theHintButton.text("Hint Button");
+    theHintButton.text("Get a Hint");
     $(".hint-row").append(theHintButton);
 
     $(".hint-button").on("click", function () {
+        if(!userClicked){
         if (optionsBlockOne.attr("value") === "hint") {
             optionsBlockOne.attr("id", "hint");
         }
@@ -351,10 +388,11 @@ function hintButton() {
         else if (optionsBlockFour.attr("value") === "hint") {
             optionsBlockFour.attr("id", "hint");
         }
+    }
     });
 };
 
-
+var questionCount = 10;
 var questions = 10;
 var gameArray = [qone, qtwo, qthree, qfour, qfive, qsix, qseven, qeight, qnine, qten];
 var arrayOfOptions;
@@ -381,19 +419,27 @@ var userClicked = false;
 var hintsLeft = 2;
 var startButton = $("<div class='start-button'>");
 var hintButtonPush = $("<div class ='hint-button'>");
-startButton.text("Start Button");
+startButton.text("Start The Game");
+var answerSection = $("#answer-options");
+var questionImage;
+optionsBlockFour.hide();
 
 $(".stage").append(startButton);
+
 $(".start-button").on("click", function () {
+
     setupQuestion();
     clickFunction();
     hintButton();
-
+    $(".questions-remaining").html(`
+            <h3> Questions remaining: ${questionCount}</h3>
+            `);
     // audioElement.play();
 });
+
 var audioElement = document.createElement("audio");
 audioElement.setAttribute("src", "assets/images/goham.mp3");
-
+answerSection.hide();
 
 
 
