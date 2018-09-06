@@ -140,13 +140,12 @@ function questionEnding() {
 function emptyStageRestart() {
     stop();
     userClicked = true;
-    
     resultsTimeOut();
-   
-    $(".stage").empty();
-   
-    
+    $(".stage").empty();    
     $(".timer").empty();
+    hideAnswers();
+    $(".hint-button").hide();
+
     number = 30;
     
 }
@@ -253,7 +252,7 @@ function stop() {
 
 function assignNewGameQuestion() {
     if (!gameover) {
-        answerSection.show();
+       
         
         questionIndex = Math.floor(Math.random() * gameArray.length);
         var assignment = gameArray[questionIndex];
@@ -269,7 +268,8 @@ function setupQuestion() {
     if (!gameover && gameArray.length > 0) {
         run();
         assignNewGameQuestion();
-       
+        showAnswers();
+        $(".hint-button").show();
         stage.text(gameQuestion.question);
         $("#hint").removeAttr("id");
         optionsBlockFour.removeAttr("value");
@@ -422,24 +422,39 @@ var hintButtonPush = $("<div class ='hint-button'>");
 startButton.text("Start The Game");
 var answerSection = $("#answer-options");
 var questionImage;
-optionsBlockFour.hide();
+hideAnswers();
+
+function hideAnswers(){
+    optionsBlockFour.hide();
+    optionsBlockOne.hide();
+    optionsBlockThree.hide();
+    optionsBlockTwo.hide();
+}
+
+function showAnswers(){
+    optionsBlockFour.show();
+    optionsBlockOne.show();
+    optionsBlockThree.show();
+    optionsBlockTwo.show();
+}
+
 
 $(".stage").append(startButton);
 
 $(".start-button").on("click", function () {
-
     setupQuestion();
     clickFunction();
     hintButton();
+    showAnswers();
     $(".questions-remaining").html(`
             <h3> Questions remaining: ${questionCount}</h3>
             `);
-    audioElement.play();
+    // audioElement.play();
 });
 
 var audioElement = document.createElement("audio");
 audioElement.setAttribute("src", "assets/images/goham.mp3");
-answerSection.hide();
+
 
 
 
