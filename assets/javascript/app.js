@@ -434,7 +434,7 @@ $(".start-button").on("click", function () {
     $(".questions-remaining").html(`
             <h3> Questions remaining: ${questionCount}</h3>
             `);
-    // audioElement.play();
+    audioElement.play();
 });
 
 var audioElement = document.createElement("audio");
